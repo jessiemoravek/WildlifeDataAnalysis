@@ -168,6 +168,8 @@ ggplot(Region_Grad, aes(x = Region, y = HS.Grad, fill=Region))+
 ## load needed packages
 library(raster) ## Spatial package for working with raster data
 library(dismo) ## Some nice functionality for species distribution modeling in this package
+library(rgdal)
+library(rgeos)
 
 ## let's read in some data
 
@@ -180,19 +182,23 @@ summary(pres_data$longitude) ## Looks like we have some NAs in the coordinates, 
 pres_data <- pres_data[!is.na(pres_data$longitude),] ## Selecting rows that don't contain NA in the longitude column
 
 pres_data_sp <- SpatialPointsDataFrame(coords = data.frame(pres_data$longitude, pres_data$latitude), data = pres_data, proj4string = CRS("+init=epsg:4326 +proj=longlat +ellps=WGS84
-+datum=WGS84 +no_defs +towgs84=0,0,0"))  ## To
++datum=WGS84 +no_defs +towgs84=0,0,0"))  ## the "proj4string" is a projection that Thomas got off some of the Hopland spatial files
+#Gotta specify projection and find it. If the file is already spatial, it has that info and you can just read in a shapefile
 
 plot(pres_data_sp) ## Interesting ... what might be the cause of this pattern?
 
 
 ## Environmental Covariates
-hopland_elevation <- raster("C:/Users/TheHuntsman/Documents/Projects/Elk_Project/HoplandPractice/HopLand_Layers/elevation.clean.tif") ## You can also point to the file path directly when reading a file, in this case a raster depicting elevation values
+hopland_elevation <- raster("elevation.clean.tif") 
+## You can also point to the file path directly when reading a file, in this case a raster depicting elevation values
 
 plot(hopland_elevation)
 
 plot(pres_data_sp, add=TRUE) ## They didn't show up, because they are not projected in UTMs!
 
-pres_data_sp_utm <- spTransform(pres_data_sp, crs(hopland_elevation))
+pres_data_sp_utm <- spTransform(pres_data_sp, crs(hopland_elevation)) 
+#crs argument matches the spatial projection of the first argument to the second
+crs(hopland_elevation)#this shows you the projection information 
 
 plot(pres_data_sp_utm, add=TRUE)
 
@@ -200,31 +206,46 @@ plot(pres_data_sp_utm, add=TRUE)
 ## Manipulating spatial data
 
 ## Let's load in a different raster dataset
-RAP_data <- raster("C:/Users/TheHuntsman/Documents/Projects/Elk_Project/HoplandPractice/RAP2018test.tif", band=5) ## This is a raster image with 6 bands, band 5 selects shrub cover. Edit file path as needed
+RAP_data <- raster("RAP2018test.tif", band=5) ## This is a raster image with 6 bands, band 5 selects shrub cover. Edit file path as needed
+#from the rangeland analysis platform that shows you veg cover estimates at 30m resolution
+
 plot(RAP_data) ## Way too much spatial coverage!
 points(pres_data_sp) ## Study area is a small subset of that
 
 ## OK, let's crop it to a km around the presence points
-pres_data_buffer <- buffer(pres_data_sp, 1000) ## default unit meters
+pres_data_buffer <- buffer(pres_data_sp, 1000) ## default unit meters, 1000 m is a 1km buffer
+#defined buffer in lat/long, crop, and reproject into UTM because easier to reproject with smaller file
 
 RAP_data_crop <- crop(RAP_data, pres_data_buffer) ## Crop to approx. study area
 
+#Now we gotta reproject into UTMS
 RAP_data_crop_utm <- projectRaster(from = RAP_data_crop, to = hopland_elevation) ## Convert to UTM, now that raster is smaller
 
 RAP_data_crop_utm <- mask(RAP_data_crop_utm, hopland_elevation) ## Line up the layers nicely
+#get rid of the areas we have no elevation data for (we're clipping to the elevation layer)
+#crop only cuts to an extent
+#mask just turns extra data into NAs
+#generally, you should crop to get close and then mask to do something fine scale
+plot(RAP_data_crop_utm)
+
 
 deer_hab_predictors <- stack(hopland_elevation, RAP_data_crop_utm) ## Stack them
 
 names(deer_hab_predictors) <- c("Elevation", "Shrub cover")
+plot(deer_hab_predictors)
+
 
 ## Defining 'pseudoabsences' on landscape and preparing data
 
 ## Let's assume field techs had a 60 m search radius
 survey_range <- buffer(pres_data_sp_utm, 60)
+plot(survey_range)
 
 elev_survey_mask <- mask(deer_hab_predictors$Elevation, survey_range)
+plot(elev_survey_mask)
+#for masking, first argument is the thing you're cropping, and survey range is what you crop to
 
-pseudo_absenceses <- randomPoints(elev_survey_mask, n=1127, p=pres_data_sp_utm) ## Let's match number of presence points here
+pseudo_absenceses <- randomPoints(elev_survey_mask, n=1127, p=pres_data_sp_utm) ## Let's match number of presence points here (1127)
 
 presence_covariates <- extract(deer_hab_predictors, pres_data_sp_utm) ## Extracts raster values at points, into matrix
 presence_covariates <- as.data.frame(presence_covariates) ## Convert to data.frame 
@@ -241,11 +262,12 @@ deer_presence_model <- glm(Presence ~ Elevation + Shrub.cover, data = glm_data, 
 
 summary(deer_presence_model) ## Summary of results
 
-plot(deer_presence_model) ## Default is some model fit plots
+plot(deer_presence_model) ## Default is some model fit plots, these are really for linear models so not that useful
+
 
 deer_presence_prediction <- predict(deer_hab_predictors,deer_presence_model, type = 'response') ## Predict to landscape
 
-plot(deer_presence_prediction)
+plot(deer_presence_prediction)#predicted probability of finding a scat in HOpland as function of elevation or shrub cover
 
 ## Not actually a 'population model' per se - what are we modeling?
 
