@@ -1,0 +1,163 @@
+
+   Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:35:53    Page  001
+    
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+   Welcome to MARK Owner on machine DESKTOP-OAF25D7 in subdirectory 
+   "C:\Users\Owner\Desktop\WildlifeDataAnalysis\WildlifeDataAnalysis\6_survival\Known_fate" running file "mark004.inp".
+   This version was compiled by GCC version 10.3.0 using the options: 
+     -cpp -iprefix c:\tdm-gcc-64\gcc64\bin\../lib/gcc/x86_64-w64-mingw32/10.3.0/
+     -D_MT -U_REENTRANT -D IEEE -D DBLEPRECISION -m64 -mtune=generic -march=x86-64
+     -mthreads -O2 -std=f2018 -fimplicit-none -fbounds-check -funroll-loops
+     -ftree-vectorize -ffpe-summary=invalid,zero,overflow,underflow
+     -fno-unsafe-math-optimizations -frounding-math -fsignaling-nans -flto
+     -fall-intrinsics -fopenmp.
+
+   This problem will use 7 of 8 possible threads.
+
+
+  INPUT --- proc title ;
+
+   CPU Time for the last procedure was 0.01 seconds.     
+
+
+  INPUT --- proc chmatrix occasions= 8 groups= 2 etype= Known Nodes= 
+  INPUT --- 101 icovar = 2 ICMeans  NoHist hist= 48 ;
+
+  INPUT ---    time interval 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---     icovariates Weight Wing_Len ;
+
+  INPUT ---    glabel(1)=SexF;
+
+  INPUT ---    glabel(2)=SexM;
+
+      Number of unique encounter histories read was 48.
+
+      Number of individual covariates read was 2.
+      Time interval lengths are all equal to 1.
+
+      Data type number is 4
+      Data type is Known Fate
+
+   CPU Time for the last procedure was 0.02 seconds.     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:35:53    Page  002
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc estimate link=Logit NOLOOP varest=2ndPart    ;
+
+
+  INPUT --- model={ S(~Weight + Wing_Len) };
+
+  INPUT ---    group=1 S    rows=1 cols=8 Square ;
+  INPUT ---        1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    group=2 S    rows=1 cols=8 Square ;
+  INPUT ---        1 1 1 1 1 1 1 1 ;
+
+  INPUT ---    design matrix constraints=1 covariates=3;
+  INPUT ---        1 Weight Wing_Len;
+  INPUT ---       blabel(1)=S:(Intercept);
+  INPUT ---       blabel(2)=S:Weight;
+  INPUT ---       blabel(3)=S:Wing_Len;
+  INPUT ---       rlabel(1)=S gF a1 t2;
+
+ Link Function Used is LOGIT        
+
+ Variance Estimation Procedure Used is 2ndPart 
+ -2logL(saturated) = 0.0000000     
+ Effective Sample Size = 284
+
+ Number of function evaluations was 31 for 3 parameters.
+ CPU Time for numerical optimization was 0.03 seconds.     
+ -2logL { S(~Weight + Wing_Len) } = 132.51694     
+ Penalty { S(~Weight + Wing_Len) } = 0.0000000     
+ Gradient { S(~Weight + Wing_Len) }:
+  0.33005637E-06  0.30885478E-06  0.49962168E-06
+ Maximum ABS(G) { S(~Weight + Wing_Len) } = 0.4996217E-06 
+ CPU Time to compute VC matrix was 0.01 seconds.     
+ S Vector { S(~Weight + Wing_Len) }:
+   42.55901     0.4806998E-01 0.4193429E-02
+ CPU Time to invert VC matrix was 0.01 seconds.     
+ Ratio Threshold = 50.000000       Max Gap (1/2) = 885.35519       Next Max Gap (1/2) = 885.35519     
+ Gap Method for Num. of Estimated Parameters { S(~Weight + Wing_Len) } = 1          
+ Threshold { S(~Weight + Wing_Len) } = 0.9992434E-06           
+ Numerical Threshold Method for Num. of Estimated Parameters { S(~Weight + Wing_Len) } = 3          
+ Number of Estimated Parameters { S(~Weight + Wing_Len) } = 3          
+
+   * *  WARNING  * *   Number of parameters estimated from gap method (=1) and threshold method (=3) differ.  Inspect full output. 
+ Ratios of S Vector { S(~Weight + Wing_Len) }:
+   1/2    885.3552       2/3    11.46317    
+ DEVIANCE { S(~Weight + Wing_Len) } = 132.51694               
+ DEVIANCE Degrees of Freedom { S(~Weight + Wing_Len) } = 45          
+ c-hat { S(~Weight + Wing_Len) } = 2.9448208               
+ AIC { S(~Weight + Wing_Len) } = 138.51694               
+ AICc { S(~Weight + Wing_Len) } = 138.60265               
+ BIC { S(~Weight + Wing_Len) } = 149.46386               
+ Pearson Chisquare { S(~Weight + Wing_Len) } = 361.80202               
+
+
+               LOGIT Link Function Parameters of { S(~Weight + Wing_Len) }
+                                                              95% Confidence Interval
+    Parameter                  Beta         Standard Error     Lower           Upper
+ -------------------------  --------------  --------------  --------------  --------------
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:35:56    Page  003
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+    1:S:(Intercept)          4.7788572       10.217413      -15.247272       24.804986    
+    2:S:Weight               3.6447546       2.9039427      -2.0469732       9.3364824    
+    3:S:Wing_Len            -0.2328130       0.4120309      -1.0403936       0.5747675    
+
+
+                  Real Function Parameters of { S(~Weight + Wing_Len) }
+
+      Following estimates based on unstandardized individual covariate values:
+          Variable   Value         
+          ---------  ------------- 
+          WEIGHT      1.1591667    
+          WING_LEN    26.972917    
+                                                               95% Confidence Interval
+     Parameter                Estimate       Standard Error     Lower           Upper
+ --------------------------  --------------  --------------  --------------  --------------
+     1:S gF a1 t2             0.9384332       0.0145136       0.9030630       0.9614485                          
+
+
+                     Estimates of Derived Parameters
+             Survival Estimates of { S(~Weight + Wing_Len) }
+
+       Pr. Surviving
+        Duration of                   95% Confidence Interval
+ Group     Study      Standard Error     Lower          Upper     
+ ----- -------------- -------------- -------------- --------------
+   1    0.6014878      0.0744199      0.4509448      0.7350097    
+   2    0.6014878      0.0744199      0.4509448      0.7350097    
+
+ Attempted ordering of parameters by estimatibility:
+  1 2 3
+ Beta number 3 is a singular value.
+
+   CPU Time for the last procedure was 0.03 seconds.     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:35:56    Page  004
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc stop;
+
+     CPU Time in minutes for this job was 0.00
+
+     Time Start = 16:35:53.383   Time End = 16:35:56.699
+
+     Wall Clock Time in minutes for this job was 0.06
+
+
+          E X E C U T I O N   S U C C E S S F U L 

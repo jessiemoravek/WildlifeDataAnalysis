@@ -1,0 +1,214 @@
+
+   Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:42:19    Page  001
+    
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+   Welcome to MARK Owner on machine DESKTOP-OAF25D7 in subdirectory 
+   "C:\Users\Owner\Desktop\WildlifeDataAnalysis\WildlifeDataAnalysis\6_survival\Known_fate" running file "mark009.inp".
+   This version was compiled by GCC version 10.3.0 using the options: 
+     -cpp -iprefix c:\tdm-gcc-64\gcc64\bin\../lib/gcc/x86_64-w64-mingw32/10.3.0/
+     -D_MT -U_REENTRANT -D IEEE -D DBLEPRECISION -m64 -mtune=generic -march=x86-64
+     -mthreads -O2 -std=f2018 -fimplicit-none -fbounds-check -funroll-loops
+     -ftree-vectorize -ffpe-summary=invalid,zero,overflow,underflow
+     -fno-unsafe-math-optimizations -frounding-math -fsignaling-nans -flto
+     -fall-intrinsics -fopenmp.
+
+   This problem will use 7 of 8 possible threads.
+
+
+  INPUT --- proc title ;
+
+   CPU Time for the last procedure was 0.01 seconds.     
+
+
+  INPUT --- proc chmatrix occasions= 8 groups= 2 etype= Known Nodes= 
+  INPUT --- 101 icovar = 8 ICMeans  NoHist hist= 48 ;
+
+  INPUT ---    time interval 1 1 1 1 1 1 1 1 ;
+
+  INPUT ---     icovariates Temp2 Temp3 Temp4 Temp5 Temp6 Temp7  Temp8 
+  INPUT ---    Temp9 ;
+
+  INPUT ---    glabel(1)=SexF;
+
+  INPUT ---    glabel(2)=SexM;
+
+      Number of unique encounter histories read was 48.
+
+      Number of individual covariates read was 8.
+      Time interval lengths are all equal to 1.
+
+      Data type number is 4
+      Data type is Known Fate
+
+   CPU Time for the last procedure was 0.01 seconds.     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:42:19    Page  002
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc estimate link=Logit NOLOOP varest=2ndPart    ;
+
+
+  INPUT --- model={ S(~Temp * Sex) };
+
+  INPUT ---    group=1 S    rows=1 cols=8 Square ;
+  INPUT ---        1 2 3 4 5 6 7 8 ;
+
+  INPUT ---    group=2 S    rows=1 cols=8 Square ;
+  INPUT ---        9 10 11 12 13 14 15 16 ;
+
+  INPUT ---    design matrix constraints=16 covariates=4;
+  INPUT ---        1 Temp2 0 0;
+  INPUT ---        1 Temp3 0 0;
+  INPUT ---        1 Temp4 0 0;
+  INPUT ---        1 Temp5 0 0;
+  INPUT ---        1 Temp6 0 0;
+  INPUT ---        1 Temp7 0 0;
+  INPUT ---        1 Temp8 0 0;
+  INPUT ---        1 Temp9 0 0;
+  INPUT ---        1 Temp2 1 Temp2;
+  INPUT ---        1 Temp3 1 Temp3;
+  INPUT ---        1 Temp4 1 Temp4;
+  INPUT ---        1 Temp5 1 Temp5;
+  INPUT ---        1 Temp6 1 Temp6;
+  INPUT ---        1 Temp7 1 Temp7;
+  INPUT ---        1 Temp8 1 Temp8;
+  INPUT ---        1 Temp9 1 Temp9;
+  INPUT ---       blabel(1)=S:(Intercept);
+  INPUT ---       blabel(2)=S:Temp;
+  INPUT ---       blabel(3)=S:SexM;
+  INPUT ---       blabel(4)=S:Temp:SexM;
+  INPUT ---       rlabel(1)=S gF a1 t2;
+  INPUT ---       rlabel(2)=S gF a2 t3;
+  INPUT ---       rlabel(3)=S gF a3 t4;
+  INPUT ---       rlabel(4)=S gF a4 t5;
+  INPUT ---       rlabel(5)=S gF a5 t6;
+  INPUT ---       rlabel(6)=S gF a6 t7;
+  INPUT ---       rlabel(7)=S gF a7 t8;
+  INPUT ---       rlabel(8)=S gF a8 t9;
+  INPUT ---       rlabel(9)=S gM a1 t2;
+  INPUT ---       rlabel(10)=S gM a2 t3;
+  INPUT ---       rlabel(11)=S gM a3 t4;
+  INPUT ---       rlabel(12)=S gM a4 t5;
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:42:19    Page  003
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+  INPUT ---       rlabel(13)=S gM a5 t6;
+  INPUT ---       rlabel(14)=S gM a6 t7;
+  INPUT ---       rlabel(15)=S gM a7 t8;
+  INPUT ---       rlabel(16)=S gM a8 t9;
+
+ Link Function Used is LOGIT        
+
+ Variance Estimation Procedure Used is 2ndPart 
+ -2logL(saturated) = 0.0000000     
+ Effective Sample Size = 284
+
+ Number of function evaluations was 21 for 4 parameters.
+ CPU Time for numerical optimization was 0.02 seconds.     
+ -2logL { S(~Temp * Sex) } = 131.78038     
+ Penalty { S(~Temp * Sex) } = 0.0000000     
+ Gradient { S(~Temp * Sex) }:
+  0.84688330E-06   0.0000000       0.0000000       0.0000000    
+ Maximum ABS(G) { S(~Temp * Sex) } = 0.8468833E-06 
+ CPU Time to compute VC matrix was 0.02 seconds.     
+ S Vector { S(~Temp * Sex) }:
+   27.30586      4.407884      1.282029     0.1937908    
+ CPU Time to invert VC matrix was 0.01 seconds.     
+ Ratio Threshold = 50.000000       Max Gap (3/4) = 6.6155309       Next Max Gap (1/2) = 6.1947779     
+ Gap Method for Num. of Estimated Parameters { S(~Temp * Sex) } = 4          
+ Threshold { S(~Temp * Sex) } = 0.1693767E-05           
+ Numerical Threshold Method for Num. of Estimated Parameters { S(~Temp * Sex) } = 4          
+ Number of Estimated Parameters { S(~Temp * Sex) } = 4          
+ DEVIANCE { S(~Temp * Sex) } = 131.78038               
+ DEVIANCE Degrees of Freedom { S(~Temp * Sex) } = 44          
+ c-hat { S(~Temp * Sex) } = 2.9950085               
+ AIC { S(~Temp * Sex) } = 139.78038               
+ AICc { S(~Temp * Sex) } = 139.92374               
+ BIC { S(~Temp * Sex) } = 154.37627               
+ Pearson Chisquare { S(~Temp * Sex) } = 347.03337               
+
+
+                   LOGIT Link Function Parameters of { S(~Temp * Sex) }
+                                                              95% Confidence Interval
+    Parameter                  Beta         Standard Error     Lower           Upper
+ -------------------------  --------------  --------------  --------------  --------------
+    1:S:(Intercept)          3.5043954       0.7680627       1.9989925       5.0097983    
+    2:S:Temp                -0.0172826       0.0119412      -0.0406873       0.0061222    
+    3:S:SexM                -0.6629187       1.0696773      -2.7594863       1.4336489    
+    4:S:Temp:SexM            0.0163785       0.0174745      -0.0178715       0.0506285    
+
+
+                      Real Function Parameters of { S(~Temp * Sex) }
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:42:21    Page  004
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+      Following estimates based on unstandardized individual covariate values:
+          Variable   Value         
+          ---------  ------------- 
+          TEMP2       51.175710    
+          TEMP3       51.335612    
+          TEMP4       45.731467    
+          TEMP5       54.430687    
+          TEMP6       47.079246    
+          TEMP7       44.634011    
+          TEMP8       51.509784    
+          TEMP9       46.614003    
+                                                               95% Confidence Interval
+     Parameter                Estimate       Standard Error     Lower           Upper
+ --------------------------  --------------  --------------  --------------  --------------
+     1:S gF a1 t2             0.9321344       0.0215351       0.8757427       0.9639863                          
+     2:S gF a2 t3             0.9319594       0.0215577       0.8755392       0.9638591                          
+     3:S gF a3 t4             0.9378499       0.0210817       0.8813353       0.9684138                          
+     4:S gF a4 t5             0.9284881       0.0221217       0.8710959       0.9614580                          
+     5:S gF a5 t6             0.9364783       0.0211436       0.8801758       0.9673082                          
+     6:S gF a6 t7             0.9389463       0.0210511       0.8821822       0.9693131                          
+     7:S gF a7 t8             0.9317682       0.0215829       0.8753147       0.9637208                          
+     8:S gF a8 t9             0.9369549       0.0211189       0.8805915       0.9676898                          
+     9:S gM a1 t2             0.9424164       0.0197650       0.8890775       0.9709446                          
+    10:S gM a2 t3             0.9424086       0.0197689       0.8890583       0.9709420                          
+    11:S gM a3 t4             0.9426829       0.0199978       0.8884211       0.9714060                          
+    12:S gM a4 t5             0.9422565       0.0199668       0.8882507       0.9710143                          
+    13:S gM a5 t6             0.9426171       0.0198748       0.8888189       0.9712262                          
+    14:S gM a6 t7             0.9427365       0.0201285       0.8879849       0.9715827                          
+    15:S gM a7 t8             0.9424000       0.0197739       0.8890348       0.9709398                          
+    16:S gM a8 t9             0.9426398       0.0199125       0.8886989       0.9712835                          
+
+
+                     Estimates of Derived Parameters
+                 Survival Estimates of { S(~Temp * Sex) }
+
+       Pr. Surviving
+        Duration of                   95% Confidence Interval
+ Group     Study      Standard Error     Lower          Upper     
+ ----- -------------- -------------- -------------- --------------
+   1    0.5806979      0.1057976      0.3714507      0.7644578    
+   2    0.6227640      0.1045086      0.4083929      0.7978978    
+
+   CPU Time for the last procedure was 0.05 seconds.     
+
+  Program  MARK  - Survival Rate Estimation with Capture-Recapture Data
+   gfortran(dble) Vers. 9.0 Jan 2019  16-Nov-2021 16:42:21    Page  005
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ 
+
+
+  INPUT --- proc stop;
+
+     CPU Time in minutes for this job was 0.00
+
+     Time Start = 16:42:19.008   Time End = 16:42:21.036
+
+     Wall Clock Time in minutes for this job was 0.03
+
+
+          E X E C U T I O N   S U C C E S S F U L 

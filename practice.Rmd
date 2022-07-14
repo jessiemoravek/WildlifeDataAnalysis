@@ -1,0 +1,9 @@
+---
+title: "practice"
+output: html_document
+---
+```{r}
+a <- 1+1
+saveRDS(a,"practice_a")
+```
+

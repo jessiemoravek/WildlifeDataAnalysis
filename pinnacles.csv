@@ -1,0 +1,30 @@
+TaxonCode,Phylum,Class,Order,Family,Genus,Species,BGARSu16,BGARWi15,BGARWi16,BGGGSu16,BGGGWi15,BGGGWi16,BGNCSu15,BGNCSu16,BGNCWi15,BGNCWi16,WCBaSu16,WCBaWi15,WCBaWi16
+OligEart,Annelida,Clitellata,(megadrile),NA,NA,NA,,,,,,,,,,,,,
+OligSmal,Annelida,Clitellata,(microdrile),NA,NA,NA,,,,,,,,,,,,,
+Hirudinea,Annelida,Clitellata,Hirudinea,Hirudinea,Hirudinea,Hirudinea sp.,0,0,0,0,0,0,8,0,0,0,0,0,0
+Acari,Arthropoda,Arachnida,NA,NA,NA,NA,0,0,0,0,0,0,8,16,0,0,0,0,1
+Hydrozet,Arthropoda,Arachnida,Sarcoptiformes,Hydrozetidae,Hydrozetes,NA,0,0,0,0,0,0,32,0,0,3,0,0,0
+Mucronothrus,Arthropoda,Arachnida,Sarcoptiformes,Trhypochthoniidae,Mucronothrus,NA,0,0,0,0,0,0,16,32,0,0,0,0,1
+Arrenurus,Arthropoda,Arachnida,Trombidiformes,Arrenuridae,Arrenurus,NA,0,0,0,0,0,0,0,0,0,0,0,0,0
+Ljania,Arthropoda,Arachnida,Trombidiformes,Aturidae,Ljania,NA,0,0,0,0,0,0,0,0,0,0,0,0,0
+Feltria,Arthropoda,Arachnida,Trombidiformes,Feltriidae,Feltria,NA,0,0,0,0,0,0,0,0,0,0,0,0,0
+Protzia,Arthropoda,Arachnida,Trombidiformes,Hydryphantidae,Protzia,NA,,,,,,,,,,,,,
+Atractides,Arthropoda,Arachnida,Trombidiformes,Hygrobatidae,Atractides,NA,0,0,0,0,0,1,0,416,2,8,0,0,0
+Hygrobat,Arthropoda,Arachnida,Trombidiformes,Hygrobatidae,Hygrobates,NA,1,0,0,0,0,0,48,0,0,0,0,0,0
+Mesobates,Arthropoda,Arachnida,Trombidiformes,Hygrobatidae,Mesobates ,NA,0,0,0,0,7,0,0,0,0,0,0,0,0
+Lebertia,Arthropoda,Arachnida,Trombidiformes,Lebertiidae,Lebertia,NA,0,0,0,0,0,0,8,0,0,0,0,0,0
+Sperchon,Arthropoda,Arachnida,Trombidiformes,Sperchontidae,Sperchon,NA,,,,,,,,,,,,,
+Torrenticola,Arthropoda,Arachnida,Trombidiformes,Torrenticolidae,Torrenticola,NA,,,,,,,,,,,,,
+Collembola,Arthropoda,Collembola,NA,NA,NA,NA,0,0,0,0,2,2,8,0,0,0,0,6,0
+Copepoda,Arthropoda,Hexanauplia,NA,NA,NA,NA,10,30,0,0,0,0,32,0,0,4,3,5,0
+Helichus,Arthropoda,Insecta,Coleoptera,Dryopidae,Helichus,NA,0,0,0,0,0,0,0,0,0,0,1,0,0
+AgabusLa,Arthropoda,Insecta,Coleoptera,Dytiscidae,Agabus,(larva),0,0,11,1,2,5,0,7,1,1,0,1,1
+AgabusSp1,Arthropoda,Insecta,Coleoptera,Dytiscidae,Agabus,Agabus species 1,3,0,0,1,0,0,0,6,0,0,1,1,0
+AgabusSp2,Arthropoda,Insecta,Coleoptera,Dytiscidae,Agabus,Agabus species 2 (greenish),0,0,0,0,0,0,0,0,0,0,1,0,0
+AgabusSp3,Arthropoda,Insecta,Coleoptera,Dytiscidae,Agabus,Agabus species 3 (bicolor),0,0,0,0,0,0,0,0,0,0,2,0,0
+BoreStri,Arthropoda,Insecta,Coleoptera,Dytiscidae,Boreonectes,Boreonectes striatellus,14,0,0,0,1,0,1,2,0,0,2,1,0
+Hydropor,Arthropoda,Insecta,Coleoptera,Dytiscidae,Hydroporinae larvae,Hydroporinae larvae,1,0,0,1,6,3,8,0,1,0,2,6,1
+HydrFort,Arthropoda,Insecta,Coleoptera,Dytiscidae,Hydroporus,Hydroporus fortis,9,0,0,1,0,0,0,0,0,0,0,0,0
+Hygrotus,Arthropoda,Insecta,Coleoptera,Dytiscidae,Hygrotus,NA,9,0,0,0,0,0,0,0,0,0,0,0,0
+LaccMacu,Arthropoda,Insecta,Coleoptera,Dytiscidae,Laccophilus,Laccophilus maculosus,0,0,0,0,0,0,0,0,0,0,0,0,0
+Liodessus,Arthropoda,Insecta,Coleoptera,Dytiscidae,Liodessus,NA,2,1,0,0,0,0,0,0,0,0,0,0,0
